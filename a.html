@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      h1,
+      h2 {
+        font-family: Lato;
+        padding-top: 5rem;
+      }
+
+      body {
+        background: url('https://wallpaperaccess.com/full/544596.jpg');
+        background-position: top;
+        background-repeat: no-repeat;
+        background-color: rgb(212, 202, 50);
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+      <h1>Japa meditation App</h1>
+
+      <b
+        >Count
+        <span id="counts"></span>
+      </b>
+      <br />
+      <b
+        >Rounds
+        <span id="rounds"></span>
+      </b>
+
+      <br /><br />
+      <button onclick="addJapa()">ADD COUNT</button><br /><br />
+      <button onclick="addRounds()">ADD ROUNDS</button><br /><br />
+      <button onclick="resetJap()">RESET JAPA COUNTS</button><br /><br />
+      <button onclick="resetRounds()">RESET ROUNDS COUNTS</button>
+    </center>
+
+    <script>
+      function startLoad() {
+        let japaCount = localStorage.japaCount;
+        let roundsCount = localStorage.roundsCount;
+        if (!japaCount) {
+          localStorage.setItem('roundsCount', 0);
+          localStorage.setItem('japaCount', 0);
+        }
+        console.log('japaCount', japaCount);
+      }
+      console.log('japaCount', localStorage.japaCount);
+      function addJapa() {
+        let japaCount = localStorage.japaCount;
+        let roundsCount = localStorage.roundsCount;
+
+        if (japaCount < 108) {
+          japaCount++;
+          localStorage.setItem('japaCount', japaCount);
+          showData();
+        } else {
+          japaCount = 1;
+          localStorage.setItem('japaCount', japaCount);
+          localStorage.setItem('roundsCount', Number(roundsCount) + 1);
+          showData();
+        }
+      }
+
+      function showData() {
+        let japaCount = localStorage.japaCount;
+        let roundsCount = localStorage.roundsCount;
+        document.getElementById('counts').innerText = japaCount;
+        document.getElementById('rounds').innerText = roundsCount;
+      }
+
+      function resetRounds() {
+        localStorage.setItem('roundsCount', 0);
+        showData();
+      }
+      function resetJap() {
+        localStorage.setItem('japaCount', 0);
+        showData();
+      }
+      function addRounds() {
+        let roundsCount = localStorage.roundsCount;
+        localStorage.setItem('roundsCount', Number(roundsCount) + 1);
+        showData();
+      }
+      startLoad();
+      showData();
+    </script>
+  </body>
+</html>
